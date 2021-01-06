@@ -14,9 +14,9 @@ const Practice1 = () => {
 
     const HandleFormComplete = (email, pass) => {
         console.log(email, pass);
-        if(state == "register") {
+        if(state === "register") {
             alert("Registered!")
-        } else if(state == "login") {
+        } else if(state === "login") {
             alert("Logged In!")
         }
     }
