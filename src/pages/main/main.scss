@@ -1,0 +1,22 @@
+.main {
+    display: flex;
+    & > div {
+        flex: 1;
+    }
+    .left{
+        background-color: #FAD;
+    }
+
+    .content {
+        background-color: #DAD;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        flex: 4;
+    }
+
+    .right {
+        background-color: #BAD;
+    }
+}
