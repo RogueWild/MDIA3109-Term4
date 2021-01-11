@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Container = styled.div`
     position:relative;
-    max-width:300px;
+    min-width:300px;
     min-height:auto;
     background:#F7F7F7;
     display:flex;
@@ -14,7 +14,7 @@ const Header = styled.div`
     background:#5F83FF;
     color:white;
     font-weight:500;
-    max-width:300px;
+    min-width:300px;
     min-height:50px;
     display:flex;
     align-items:center;
@@ -53,7 +53,31 @@ const RightCont = styled.div`
     }
 `;
 
-const Table = ({ }) => {
+const Input = styled.input`
+    margin:10px 0px;
+    max-width:300px;
+`;
+
+const InputCont = styled.div`
+    display:flex;
+    flex-direction:column;
+`;
+
+const data = [
+    {
+        id: 1,
+        name: "text",
+        reps: "int",
+        calories: "int",
+        created: "timestamp"
+    }
+]
+
+const Table = ({ list, onInsert }) => {
+    const [name, setName] = useState(null);
+    const [reps, setReps] = useState(null);
+    const [cal, setCal] = useState(null);
+
     return <div>
         <Header>
             <span>exercise</span>
@@ -76,29 +100,44 @@ const Table = ({ }) => {
                     created
             </span>
             </LeftCont>
-            <RightCont>
+            {list.map(o => <RightCont>
                 <span>
-                    <b>int</b>
+                    <b>{o.id}</b>
                 </span>
                 <span>
-                    text
-            </span>
+                    {o.name}
+                </span>
                 <span>
-                    int
-            </span>
+                    {o.reps}
+                </span>
                 <span>
-                    int
-            </span>
+                    {o.calories}
+                </span>
                 <span>
-                    timestamp
-            </span>
-            </RightCont>
+                    {o.created}
+                </span>
+            </RightCont>)}
         </Container>
+        <InputCont>
+            <Input type='text' placeholder="name" onChange={(e) => {
+                setName(e.target.value);
+            }}></Input>
+            <Input type='text' placeholder="reps" onChange={(e) => {
+                setReps(e.target.value);
+            }}></Input>
+            <Input type='text' placeholder="calories" onChange={(e) => {
+                setCal(e.target.value);
+            }}></Input>
+        </InputCont>
+        <button onClick={() => {
+            onInsert(name, reps, cal);
+        }}>Insert</button>
     </div>
 }
 
 Table.defaultProps = {
-
+    list: data,
+    onInsert: () => { }
 }
 
 export default Table;

@@ -20,7 +20,6 @@ const fakedb = [
 
 const Messages = ({msgs}) => {
 
-
     return <Container>
         Messages
         {msgs.map(o=><MsgCont>
