@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Form from '../../comps/Practices/Practice1/Form';
-import Tab from '../../comps/Practices/Practice1/Form/Tab';
+import Form from '../../../comps/Practices/Practice1/Form';
+import Tab from '../../../comps/Practices/Practice1/Form/Tab';
 
 const Practice1 = () => {
 
