@@ -26,7 +26,7 @@ const Practice1 = () => {
         setState("register");
     }, []);
 
-    return <div className="main">
+    return <div className="practice1">
         <div className="tabs">
             <Tab tabText="Register"
                 onTabSelect={HandleTabSelect}

@@ -36,6 +36,7 @@ const Form = ({ name, width, height, bgcolor, onFormComplete, onContainerSelect 
 
     const [username, setUserame] = useState(null);
     const [pass, setPass] = useState(null);
+    const [msg, setMsg] = useState(null);
     const [check1, setCheck1] = useState(false);
     const [check2, setCheck2] = useState(false);
     const [check3, setCheck3] = useState(false);
@@ -68,6 +69,9 @@ const Form = ({ name, width, height, bgcolor, onFormComplete, onContainerSelect 
         <FormInput type='password' placeholder='pass' onChange={(e) => {
             setPass(e.target.value);
         }} />
+                <FormInput type='text' placeholder='chat message' onChange={(e) => {
+            setMsg(e.target.value);
+        }} />
         <span>
             <FormCheckbox onChange={(e) => {
                 setCheck1(e.target.checked);
@@ -84,8 +88,8 @@ const Form = ({ name, width, height, bgcolor, onFormComplete, onContainerSelect 
             }} /> I agree with all of the above
         </span>
         <FormButton onClick={() => {
-            onFormComplete(username, pass, check1, check2, check3);
-        }}>Sign up</FormButton>
+            onFormComplete(username, pass, msg, check1, check2, check3);
+        }}>Send Message</FormButton>
     </Container>
 }
 
@@ -93,7 +97,9 @@ Form.defaultProps = {
     width: null,
     height: null,
     bgcolor: null,
-    onFormComplete: () => { }
+    onFormComplete: () => { },
+    onContainerSelect: () => { }
+
 }
 
 export default Form;
