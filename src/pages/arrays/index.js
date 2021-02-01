@@ -1,17 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import Pagin from '../../comps/Pagin'
+import Form from '../../comps/Form';
+import Items from '../../comps/Items';
+
+import Pagin from '../../comps/Pagin';
+
+import {
+    useParams
+} from "react-router-dom";
 
 const ArrayPage = () => {
 
+    const params = useParams();
+    console.log(params.id);
     const [msgs, setMsgs] = useState([]);
     const [allmsgs, setAll] = useState([]);
+    const [selectedId, setSelected] = useState(null);
     const itemps_per_page = 3;
+
     const GetMessages = async () => {
         var resp = await axios.get("https://advdyn2021.herokuapp.com/allmessages");
         // console.log("get message", resp);
-        var arr = resp.data.slice(3, 6);
+        var arr = resp.data.slice(0, 5);
         setMsgs(arr);
         setAll(resp.data);
     }
@@ -57,16 +68,38 @@ const ArrayPage = () => {
         )
     }
 
+    const UpdateMessage = async (username, pass, msg, check1, check2, check3) => {
+        console.log(msg);
+        if (selectedId === null) {
+            return false;
+        }
+        var resp = await axios.post("https://advdyn2021.herokuapp.com/editmessage", {
+            id: selectedId,
+            message: msg
+        });
+        GetMessages();
+    }
+
     useEffect(() => {
         GetMessages()
     }, []);
     return <div>
         <b>Array Page</b>
         {msgs.map(o => {
-            var date = new Date(o.created);
-            return <div>{o.username} - {o.created}</div>
+            // var date = new Date(o.created);
+            return <Items onClick={(id) => {
+                console.log(id);
+                setSelected(id); // Get id from the comp and use it
+            }}
+                id={o.id}
+                message={o.message}
+                created={o.created}
+                username={o.username}
+                highlight={selectedId === o.id}
+            />;
         })}
-        <input type="number" defaultValue={1} onChange={(e) => {
+        <Form onFormComplete={UpdateMessage} />
+        {/* <input type="number" defaultValue={1} onChange={(e) => {
             ChangePage(e.target.value);
         }} />
         <div>Filter</div>
@@ -80,7 +113,7 @@ const ArrayPage = () => {
 
         <button onClick={SortMsgs}>Sort by username</button>
         <button onClick={SortMsgs}>Sort messages by date</button>
-        <Pagin numpages={Math.ceil(allmsgs.length/3)} onClickPage={ChangePage} />
+        <Pagin numpages={Math.ceil(allmsgs.length/3)} onClickPage={ChangePage} /> */}
     </div>
 
 }
@@ -109,6 +142,15 @@ function sortByDate(a, b) {
         return 0;
     }
 }
+
+/*
+To Update
+1 - pass the id to the component (if you are using a component)
+2 - have a handler to capture a interaction that passes the id back out to the page
+3 - have a state ready to remember the id to update (useState)
+4 - use the state id for your axios call so you can pass the id + other data to the backend
+5 - make the axios call and re read everything.
+*/
 
 /*
 PAGINATE

@@ -4,8 +4,16 @@ import Messages from '../../comps/Messages';
 
 import axios from 'axios';
 
+import {
+    useHistory,
+    useLocation
+} from "react-router-dom";
+
 const Main = () => {
 
+    const history = useHistory();
+    const location = useLocation();
+    console.log(location);
     const [clickedForm, setClickedForm] = useState(null);
 
     // initial state for the messages
@@ -22,10 +30,11 @@ const Main = () => {
 
         // axios promise
         // retreive data
-        var resp = await axios.post("https://advdyn2021.herokuapp.com/createmessage", {username:username, message:msg});
+        var resp = await axios.post("https://advdyn2021.herokuapp.com/createmessage", { username: username, message: msg });
         console.log("create", resp);
+        history.push("/arrays");
         // update state
-        GetMsgs();
+        // GetMsgs();
     }
 
     const GetMsgs = async () => {

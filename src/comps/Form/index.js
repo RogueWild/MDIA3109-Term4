@@ -50,15 +50,15 @@ const Form = ({ name, width, height, bgcolor, onFormComplete, onContainerSelect 
         //alert("changed background");
     }, [bgcolor]);
 
-    useEffect(()=>{
-        timer = setInterval(()=>{
-            console.log("time is running out");
-        }, 1000)
-        return () => {
-            //this is death.
-            clearInterval(timer);
-        }
-    }, );
+    // useEffect(()=>{
+    //     timer = setInterval(()=>{
+    //         console.log("time is running out");
+    //     }, 1000)
+    //     return () => {
+    //         //this is death.
+    //         clearInterval(timer);
+    //     }
+    // }, );
 
     return <Container onClick={() => {
         onContainerSelect(name);
