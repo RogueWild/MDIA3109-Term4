@@ -83,6 +83,7 @@ const ArrayPage = () => {
     useEffect(() => {
         GetMessages()
     }, []);
+    
     return <div>
         <b>Array Page</b>
         {msgs.map(o => {
