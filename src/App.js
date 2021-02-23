@@ -15,6 +15,8 @@ import ReadData from './pages/read_data';
 import Profile from './pages/read_data/profile';
 import EditProfile from './pages/read_data/edit';
 
+import Login from './pages/login';
+
 function App() {
   return (
     <Router>
@@ -25,6 +27,9 @@ function App() {
         </div>
         <Switch>
           <Route exact path="/">
+            <Login />
+          </Route>
+          <Route exact path="/read">
             {/* <Main /> */}
             <ReadData />
           </Route>

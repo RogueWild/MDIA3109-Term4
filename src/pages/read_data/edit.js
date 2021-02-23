@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import Form from '../../comps/Form';
 
@@ -9,12 +9,29 @@ import Form from '../../comps/Form';
 // axios https://advdyn2021.herokuapp.com/user_by_id/5 -> get a single user by it's id
 
 const EditProfile = () => {
+    const history = useHistory();
     const params = useParams();
     console.log(params);
     const [p, setP] = useState([]); // profile
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
     const [bio, setBio] = useState("");
+
+    const CheckStorage = async () => {
+        var token = await sessionStorage.getItem("token");
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = token;
+            var resp = await axios.get("https://advdyn2021.herokuapp.com/verify");
+            console.log("veryfication", resp.data);
+            if (resp.data === "expired") {
+                // hide login
+                //setShowLogin(false);
+                history.push("/");
+            } else {
+                GetData();
+            }
+        }
+    }
 
     const GetData = async () => {
         //var resp3 = axios.get("https://advdyn2021.herokuapp.com/user_by_id/5");
@@ -37,7 +54,7 @@ const EditProfile = () => {
     }
 
     useEffect(() => {
-        GetData();
+        CheckStorage();
     }, []);
 
     return <div>
